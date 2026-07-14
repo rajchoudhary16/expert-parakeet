@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PulseArena | Smart Stadium Assistant</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="backdrop"></div>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="ambient ambient-three"></div>
+
+    <header class="site-header">
+      <nav class="topbar">
+        <a class="brand" href="#top">
+          <span class="brand-mark">PA</span>
+          <span>
+            <strong>PulseArena</strong>
+            <small>Smart Stadium Assistant</small>
+          </span>
+        </a>
+        <div class="topbar-links">
+          <a href="#platform">Platform</a>
+          <a href="#insights">Insights</a>
+          <a href="#social-proof">Proof</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <a class="topbar-cta" href="#dashboard">Open live demo</a>
+      </nav>
+
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <div class="eyebrow-row">
+            <p class="eyebrow">AI-powered stadium operations</p>
+            <span class="live-chip"><span></span> Live venue intelligence</span>
+          </div>
+          <h1>Keep every crowd moving with a stadium experience that feels calm, premium, and effortless.</h1>
+          <p class="lede">
+            PulseArena helps large venues reduce congestion, shorten queues, guide parking, and send the right alerts to the right guests at the right moment.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary" id="refreshBtn">Refresh live network</button>
+            <button class="secondary" id="emergencyBtn">Trigger emergency mode</button>
+          </div>
+
+          <div class="trust-row">
+            <div class="trust-pill">
+              <strong>12k+</strong>
+              <span>Guests guided per match</span>
+            </div>
+            <div class="trust-pill">
+              <strong>34%</strong>
+              <span>Average queue reduction</span>
+            </div>
+            <div class="trust-pill">
+              <strong>4.9/5</strong>
+              <span>Venue ops satisfaction</span>
+            </div>
+          </div>
+
+          <div class="status-row">
+            <div class="status-pill">
+              <span class="status-dot live"></span>
+              Live occupancy: <strong id="occupancyValue">78%</strong>
+            </div>
+            <div class="status-pill">
+              <span class="status-dot route"></span>
+              Best route delay: <strong id="routeDelayValue">4 min</strong>
+            </div>
+            <div class="status-pill">
+              <span class="status-dot parking"></span>
+              Parking match confidence: <strong id="parkingConfidence">92%</strong>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <div class="panel-card score-card">
+            <div>
+              <p class="panel-label">Match pulse</p>
+              <h2>North Bowl routing is fastest right now.</h2>
+            </div>
+            <div class="score-ring">
+              <span id="matchPulse">91</span>
+              <small>/100</small>
+            </div>
+          </div>
+
+          <div class="panel-card insight-card">
+            <p class="panel-label">AI insight</p>
+            <p id="aiInsight">
+              Gate B concourse is building near the 3rd quarter intermission. Recommend rerouting arriving fans through Gate D and using Lot C for sub-10-minute access.
+            </p>
+          </div>
+
+          <div class="mini-stats">
+            <div>
+              <span>Shortest ETA</span>
+              <strong>6 min</strong>
+            </div>
+            <div>
+              <span>Peak alerts</span>
+              <strong>2 live</strong>
+            </div>
+            <div>
+              <span>Route confidence</span>
+              <strong>91%</strong>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </header>
+
+    <main class="dashboard" id="dashboard">
+      <section class="stats-strip" id="platform">
+        <article class="stat-card">
+          <span class="stat-icon">↗</span>
+          <div>
+            <strong>Real-time flow control</strong>
+            <p>Monitor density, steer guests, and balance pressure across gates.</p>
+          </div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon">⎈</span>
+          <div>
+            <strong>Operational confidence</strong>
+            <p>Give stewards actionable context before queues become a problem.</p>
+          </div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon">◎</span>
+          <div>
+            <strong>Personalized guidance</strong>
+            <p>Deliver targeted routing, parking, and alert messages by audience type.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="feature-grid" id="insights">
+        <article class="feature-card feature-card--large map-card">
+          <div class="section-head">
+            <div>
+              <p class="panel-label">Venue map</p>
+              <h3>Shortest route planner</h3>
+            </div>
+            <div class="route-meta">
+              <span id="routeMode">Fastest exit</span>
+              <strong id="routeTime">6 min</strong>
+            </div>
+          </div>
+
+          <div class="controls">
+            <label>
+              Origin
+              <select id="originSelect"></select>
+            </label>
+            <label>
+              Destination
+              <select id="destinationSelect"></select>
+            </label>
+            <label>
+              Preference
+              <select id="preferenceSelect">
+                <option value="fastest">Fastest</option>
+                <option value="leastCrowded">Least crowded</option>
+                <option value="accessible">Accessible</option>
+                <option value="family">Family-friendly</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="map-shell">
+            <div class="stadium-map" id="stadiumMap"></div>
+            <div class="route-panel">
+              <div class="route-legend">
+                <div><span class="legend-dot route"></span> Suggested path</div>
+                <div><span class="legend-dot crowd"></span> Crowd index</div>
+                <div><span class="legend-dot alert"></span> Alert zone</div>
+              </div>
+              <ol class="step-list" id="routeSteps"></ol>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature-card" id="social-proof">
+          <div class="section-head">
+            <div>
+              <p class="panel-label">Crowd intelligence</p>
+              <h3>Live density by zone</h3>
+            </div>
+            <span class="badge" id="crowdState">Normal flow</span>
+          </div>
+          <div class="density-grid" id="densityGrid"></div>
+        </article>
+
+        <article class="feature-card">
+          <div class="section-head">
+            <div>
+              <p class="panel-label">Queue updates</p>
+              <h3>Wait times at key services</h3>
+            </div>
+          </div>
+          <div class="queue-list" id="queueList"></div>
+        </article>
+
+        <article class="feature-card">
+          <div class="section-head">
+            <div>
+              <p class="panel-label">Smart parking</p>
+              <h3>Best lot recommendation</h3>
+            </div>
+            <span class="badge accent" id="parkingBadge">EV ready</span>
+          </div>
+          <div class="parking-reco" id="parkingReco"></div>
+        </article>
+
+        <article class="feature-card">
+          <div class="section-head">
+            <div>
+              <p class="panel-label">Emergency alerts</p>
+              <h3>Safety and wayfinding notices</h3>
+            </div>
+          </div>
+          <div class="alerts-list" id="alertsList"></div>
+        </article>
+
+        <article class="feature-card">
+          <div class="section-head">
+            <div>
+              <p class="panel-label">Personalized notifications</p>
+              <h3>Tailored guidance for each guest type</h3>
+            </div>
+            <button class="ghost" id="togglePrefsBtn">Rotate audience</button>
+          </div>
+          <div class="prefs" id="prefsSummary"></div>
+          <div class="notification-feed" id="notificationFeed"></div>
+        </article>
+      </section>
+
+      <section class="proof-grid">
+        <article class="quote-card">
+          <p class="quote-mark">“</p>
+          <p>PulseArena gave us one place to see congestion, reroute guests, and keep service lines moving even at peak arrival windows.</p>
+          <div>
+            <strong>Director of Guest Experience</strong>
+            <span>Major league venue operator</span>
+          </div>
+        </article>
+        <article class="quote-card">
+          <p class="quote-mark">“</p>
+          <p>The accessibility routing and parking guidance alone cut confusion dramatically. Fans found the right gate faster and staff had fewer escalations.</p>
+          <div>
+            <strong>Operations Lead</strong>
+            <span>Stadium safety team</span>
+          </div>
+        </article>
+        <article class="quote-card">
+          <p class="quote-mark">“</p>
+          <p>We finally have a dashboard that reads like a premium product, not a control panel. It is intuitive for both guests and stewards.</p>
+          <div>
+            <strong>Venue Technology Manager</strong>
+            <span>Multi-event arena</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="faq-section" id="faq">
+        <div class="section-head section-head--stacked">
+          <div>
+            <p class="panel-label">FAQ</p>
+            <h3>Common questions from venue operators</h3>
+          </div>
+          <p class="lede compact">A streamlined answer set helps teams understand how PulseArena supports safer, faster event flow.</p>
+        </div>
+        <div class="faq-grid">
+          <details open>
+            <summary>How does the assistant reduce congestion?</summary>
+            <p>It analyzes density, queue length, and route weights to suggest lighter gates, parking, and walking corridors before bottlenecks worsen.</p>
+          </details>
+          <details>
+            <summary>Can guests receive personalized alerts?</summary>
+            <p>Yes. Visitors can be grouped by audience type, such as family, VIP, accessibility, or away supporters, with relevant notifications and routing.</p>
+          </details>
+          <details>
+            <summary>Does it support emergency messaging?</summary>
+            <p>Emergency mode reroutes traffic toward safe exits, suppresses nonessential guidance, and elevates safety notices across the interface.</p>
+          </details>
+          <details>
+            <summary>Is the layout responsive and accessible?</summary>
+            <p>The interface is built with readable contrast, flexible grids, strong tap targets, and a clean hierarchy that scales across device sizes.</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <div class="brand footer-brandmark">
+          <span class="brand-mark">PA</span>
+          <span>
+            <strong>PulseArena</strong>
+            <small>Smart Stadium Assistant</small>
+          </span>
+        </div>
+        <p>Trusted venue intelligence for safer arrivals, faster movement, and smoother matchday experiences.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <strong>Product</strong>
+          <a href="#platform">Platform</a>
+          <a href="#insights">Insights</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div>
+          <strong>Company</strong>
+          <a href="#">About</a>
+          <a href="#">Security</a>
+          <a href="#">Contact</a>
+        </div>
+        <div>
+          <strong>Connect</strong>
+          <a href="#">LinkedIn</a>
+          <a href="#">X / Twitter</a>
+          <a href="#">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
